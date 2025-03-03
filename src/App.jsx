@@ -1,12 +1,17 @@
+import { useState } from "react";
+import HomePage from "./components/HomePage/HomePage";
 import Product from "./components/Product/Product";
 const App = () => {
+  const [count, setCount] = useState(1000); //[1000,fxn]
+
+  const handleClick = () => {
+    setCount(count + 1000);
+  };
+
   return (
     <div>
-      <Product name={"Samsung"} price={200000} />
-      <Product name={"Oppo"} price={90000} />
-      <Product name={"OnePlus"} price={60000} />
-      <Product />
-      <Product name="vivo">hello how are you</Product>
+      <h1>value of count is {count}</h1>
+      <button onClick={handleClick}>increase count</button>
     </div>
   );
 };
