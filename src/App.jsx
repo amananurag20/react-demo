@@ -1,25 +1,11 @@
-import { Product } from "./Product.jsx";
-import HomePage from "./Product.jsx";
-
+import Product from "./components/Product/Product";
 const App = () => {
-  const a = 20;
-
   return (
-    <>
-      <h1
-        className=""
-        onClick={() => {
-          console.log("Hello");
-        }}
-      >
-        {"hello world"}
-      </h1>
-      <p>byeeee</p>
-      <Product />
-      <HomePage />
-      <Product></Product>
-      <Product></Product>
-    </>
+    <div>
+      <Product name={"Samsung"} price={200000} />
+      <Product name={"Oppo"} price={90000} />
+      <Product name={"OnePlus"} price={60000} />
+    </div>
   );
 };
 
