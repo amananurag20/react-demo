@@ -5,7 +5,11 @@ const App = () => {
   const [count, setCount] = useState(1000); //[1000,fxn]
 
   const handleClick = () => {
-    setCount(count + 1000);
+    setCount(count + 1000); //2000
+    setCount((prev) => prev + 1000); //3000
+    setCount(count + 1000); //2000
+
+    console.log(count); //1000
   };
 
   return (
