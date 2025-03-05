@@ -1,14 +1,21 @@
 import { useState } from "react";
 
 const App = () => {
-  let [count, setCount] = useState({ data: 1000 });
+  let [count, setCount] = useState({
+    data: 1000,
+    name: "vikram",
+    status: "single",
+    gender: "male",
+  });
 
   console.log("hiiii");
 
   const handleClick = (result) => {
     if (result == "increase") {
-      count.data = count.data + 1000;
-      setCount(count);
+      // count.data = count.data + 1000; ye galat hai
+      const newCount = { ...count, data: count.data + 1000 };
+
+      setCount(newCount);
       console.log(count);
     } else {
       count.data = count.data - 1000;
@@ -19,6 +26,8 @@ const App = () => {
   return (
     <div>
       <h1>{count.data}</h1>
+      <h2>{count.name}</h2>
+      <h2>{count.gender}</h2>
 
       <button
         onClick={() => {
