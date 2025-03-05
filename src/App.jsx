@@ -1,24 +1,41 @@
 import { useState } from "react";
-import HomePage from "./components/HomePage/HomePage";
-import Product from "./components/Product/Product";
-const App = () => {
-  const [count, setCount] = useState(() => {
-    const storedCount = localStorage.getItem("count");
-    if (storedCount) {
-      return storedCount;
-    }
-    return 1000;
-  });
 
-  const handleClick = () => {
-    setCount(count + 1000);
-    localStorage.setItem("count", count + 1000);
+const App = () => {
+  let [count, setCount] = useState({ data: 1000 });
+
+  console.log("hiiii");
+
+  const handleClick = (result) => {
+    if (result == "increase") {
+      count.data = count.data + 1000;
+      setCount(count);
+      console.log(count);
+    } else {
+      count.data = count.data - 1000;
+      setCount(count);
+    }
   };
 
   return (
     <div>
-      <h1>value of count is {count}</h1>
-      <button onClick={handleClick}>increase count</button>
+      <h1>{count.data}</h1>
+
+      <button
+        onClick={() => {
+          handleClick("increase");
+        }}
+      >
+        increase count
+      </button>
+      <button
+        onClick={() => {
+          handleClick("decrease");
+        }}
+      >
+        decrease count
+      </button>
+
+      {count > 5000 ? <h1> "hello dear how are you"</h1> : <p>"Go to hell"</p>}
     </div>
   );
 };
