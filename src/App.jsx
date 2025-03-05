@@ -1,51 +1,22 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const App = () => {
-  let [count, setCount] = useState({
-    data: 1000,
-    name: "vikram",
-    status: "single",
-    gender: "male",
-  });
+  const [count, setCount] = useState(1000);
+  const [data, setdata] = useState(5000);
+  console.log("hi");
 
-  console.log("hiiii");
-
-  const handleClick = (result) => {
-    if (result == "increase") {
-      // count.data = count.data + 1000; ye galat hai
-      const newCount = { ...count, data: count.data + 1000 };
-
-      setCount(newCount);
-      console.log(count);
-    } else {
-      count.data = count.data - 1000;
-      setCount(count);
-    }
-  };
-
+  useEffect(() => {
+    console.log("use effect");
+  }, [count, data]);
   return (
-    <div>
-      <h1>{count.data}</h1>
-      <h2>{count.name}</h2>
-      <h2>{count.gender}</h2>
-
-      <button
-        onClick={() => {
-          handleClick("increase");
-        }}
-      >
-        increase count
-      </button>
-      <button
-        onClick={() => {
-          handleClick("decrease");
-        }}
-      >
-        decrease count
-      </button>
-
-      {count > 5000 ? <h1> "hello dear how are you"</h1> : <p>"Go to hell"</p>}
-    </div>
+    <>
+      <h1>
+        hi app.jsx {count} {data}
+      </h1>
+      {console.log("after return")}
+      <button onClick={() => setCount(count + 1000)}>Increase count</button>
+      <button onClick={() => setdata(data + 1000)}>Increase data</button>
+    </>
   );
 };
 
