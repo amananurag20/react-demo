@@ -2,21 +2,24 @@ import React, { useEffect, useState } from "react";
 
 const App = () => {
   const [count, setCount] = useState(1000);
-  const [data, setdata] = useState(5000);
-  console.log("hi");
+  const [data, setData] = useState([]);
 
+  const apiCall = async () => {
+    const response = await fetch("https://fakestoreapi.com/products");
+    const json = await response.json();
+    setData(json);
+  };
   useEffect(() => {
-    console.log("use effect");
-  }, [count, data]);
+    apiCall();
+  }, []);
+  console.log(data);
+
   return (
-    <>
-      <h1>
-        hi app.jsx {count} {data}
-      </h1>
-      {console.log("after return")}
-      <button onClick={() => setCount(count + 1000)}>Increase count</button>
-      <button onClick={() => setdata(data + 1000)}>Increase data</button>
-    </>
+    <div>
+      <h1>count- {count}</h1>
+      {data[0]?.price}
+      <button onClick={() => setCount(count + 1000)}>Increase</button>
+    </div>
   );
 };
 
