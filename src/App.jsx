@@ -2,19 +2,26 @@ import { useState } from "react";
 import "./App.css";
 
 const App = () => {
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
+  // const [name, setName] = useState("");
+  // const [password, setPassword] = useState("");
+  const [input, setInput] = useState({
+    name: "",
+    password: "",
+    email: "",
+    mobile: "",
+    address: "",
+    DOB: "",
+  });
+
   const [passwordType, setPasswordType] = useState("password");
 
   function handleChange(e) {
-    setName(e.target.value);
-    console.log(name);
+    const { name, value } = e.target;
+    setInput({ ...input, [name]: value });
   }
 
-  function handlePassword(e) {
-    setPassword(e.target.value);
-  }
   console.log("code challa");
+  console.log("input", input);
 
   function handlePasswordView() {
     if (passwordType === "password") {
@@ -33,10 +40,10 @@ const App = () => {
             type="text"
             placeholder="enter your name"
             onChange={handleChange}
-            value={name}
+            value={input.name}
+            name="name"
           ></input>
           <h1>{name}</h1>
-          <button onClick={() => setName("you are fool")}>Click here</button>
         </div>
 
         <div>
@@ -44,7 +51,9 @@ const App = () => {
           <input
             type={passwordType}
             placeholder="enter your password"
-            onChange={handlePassword}
+            onChange={handleChange}
+            value={input.password}
+            name="password"
           ></input>
           <button onClick={handlePasswordView}>
             {passwordType === "password" ? "view password" : "hide password"}
