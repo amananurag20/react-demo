@@ -1,58 +1,57 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
+import "./App.css";
 
 const App = () => {
-  const [count, setCount] = useState(1000);
-  const [data, setData] = useState([]);
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordType, setPasswordType] = useState("password");
 
-  const apiCall = async () => {
-    const response = await fetch("https://fakestoreapi.com/products");
-    const json = await response.json();
-    setData(json.slice(0, 10));
-  };
-  useEffect(() => {
-    apiCall();
-  }, []);
-  console.log(data);
+  function handleChange(e) {
+    setName(e.target.value);
+    console.log(name);
+  }
+
+  function handlePassword(e) {
+    setPassword(e.target.value);
+  }
+  console.log("code challa");
+
+  function handlePasswordView() {
+    if (passwordType === "password") {
+      setPasswordType("text");
+    } else {
+      setPasswordType("password");
+    }
+  }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexWrap: "wrap",
-        gap: "10px",
-        justifyContent: "space-around",
-      }}
-    >
-      {data.map((item) => (
-        <div
-          style={{
-            width: "300px",
-            background: "cyan",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "column",
-          }}
-        >
-          <h2>{item.title}</h2>
-          <img src={item.image} alt="dasdsa" style={{ width: "200px" }}></img>
-          <h3>Price rs {item.price}</h3>
-          <button
-            style={{
-              padding: "20px",
-              background: "red",
-              fontWeight: "bold",
-              color: "white",
-              borderRadius: "5px",
-            }}
-            onClick={() => alert("Item added to cart")}
-          >
-            Add to Cart
+    <>
+      <div className="container">
+        <div>
+          <p>Enter your name</p>
+          <input
+            type="text"
+            placeholder="enter your name"
+            onChange={handleChange}
+            value={name}
+          ></input>
+          <h1>{name}</h1>
+          <button onClick={() => setName("you are fool")}>Click here</button>
+        </div>
+
+        <div>
+          <p>Password</p>
+          <input
+            type={passwordType}
+            placeholder="enter your password"
+            onChange={handlePassword}
+          ></input>
+          <button onClick={handlePasswordView}>
+            {passwordType === "password" ? "view password" : "hide password"}
           </button>
         </div>
-      ))}
-      <button onClick={() => setCount(count + 1000)}>Increase</button>
-    </div>
+      </div>
+    </>
   );
 };
 
