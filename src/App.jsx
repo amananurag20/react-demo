@@ -1,21 +1,56 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
+import "./App.css";
 
 const App = () => {
-  const [count, setCount] = useState(1000);
-  const [data, setdata] = useState(5000);
-  console.log("hi");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordType, setPasswordType] = useState("password");
 
-  useEffect(() => {
-    console.log("use effect");
-  }, [count, data]);
+  function handleChange(e) {
+    setName(e.target.value);
+    console.log(name);
+  }
+
+  function handlePassword(e) {
+    setPassword(e.target.value);
+  }
+  console.log("code challa");
+
+  function handlePasswordView() {
+    if (passwordType === "password") {
+      setPasswordType("text");
+    } else {
+      setPasswordType("password");
+    }
+  }
+
   return (
     <>
-      <h1>
-        hi app.jsx {count} {data}
-      </h1>
-      {console.log("after return")}
-      <button onClick={() => setCount(count + 1000)}>Increase count</button>
-      <button onClick={() => setdata(data + 1000)}>Increase data</button>
+      <div className="container">
+        <div>
+          <p>Enter your name</p>
+          <input
+            type="text"
+            placeholder="enter your name"
+            onChange={handleChange}
+            value={name}
+          ></input>
+          <h1>{name}</h1>
+          <button onClick={() => setName("you are fool")}>Click here</button>
+        </div>
+
+        <div>
+          <p>Password</p>
+          <input
+            type={passwordType}
+            placeholder="enter your password"
+            onChange={handlePassword}
+          ></input>
+          <button onClick={handlePasswordView}>
+            {passwordType === "password" ? "view password" : "hide password"}
+          </button>
+        </div>
+      </div>
     </>
   );
 };
