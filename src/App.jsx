@@ -1,57 +1,65 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 
 const App = () => {
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordType, setPasswordType] = useState("password");
+  const [count, setCount] = useState(1000);
+  const [data, setData] = useState([]);
+  const [search, setSearch] = useState("");
+  const [filterData, setFilterData] = useState([]);
 
-  function handleChange(e) {
-    setName(e.target.value);
-    console.log(name);
-  }
+  useEffect(() => {
+    const apiCall = async () => {
+      const response = await fetch("https://fakestoreapi.com/products");
+      const json = await response.json();
+      setData(json);
+      setFilterData(json);
+    };
+    apiCall();
+  }, []);
 
-  function handlePassword(e) {
-    setPassword(e.target.value);
-  }
-  console.log("code challa");
+  console.log(data);
 
-  function handlePasswordView() {
-    if (passwordType === "password") {
-      setPasswordType("text");
-    } else {
-      setPasswordType("password");
-    }
+  function handleSearch() {
+    const filterItem = data.filter((item) =>
+      item.title.toLowerCase().includes(search.toLowerCase())
+    );
+    setFilterData(filterItem);
   }
 
   return (
-    <>
-      <div className="container">
-        <div>
-          <p>Enter your name</p>
+    <div className="app">
+      <div>
+        <form onSubmit={(e) => e.preventDefault()}>
           <input
-            type="text"
-            placeholder="enter your name"
-            onChange={handleChange}
-            value={name}
+            placeholder="Search"
+            className="search-bar"
+            onChange={(e) => setSearch(e.target.value)}
           ></input>
-          <h1>{name}</h1>
-          <button onClick={() => setName("you are fool")}>Click here</button>
-        </div>
-
-        <div>
-          <p>Password</p>
-          <input
-            type={passwordType}
-            placeholder="enter your password"
-            onChange={handlePassword}
-          ></input>
-          <button onClick={handlePasswordView}>
-            {passwordType === "password" ? "view password" : "hide password"}
-          </button>
-        </div>
+          <button onClick={handleSearch}>Search</button>
+        </form>
       </div>
-    </>
+      <div className="products-container">
+        {filterData.map((item) => (
+          <div className="product-card" key={item.id}>
+            <h2 className="product-title">{item.title}</h2>
+            <img className="product-image" src={item.image} alt={item.title} />
+            <h3 className="product-price">₹{item.price}</h3>
+            <button
+              className="add-to-cart-button"
+              onClick={() => alert("Item added to cart")}
+            >
+              Add to Cart
+            </button>
+          </div>
+        ))}
+      </div>
+      <button
+        className="increase-button"
+        onClick={() => setCount(count + 1000)}
+      >
+        Increase
+      </button>
+    </div>
   );
 };
 
