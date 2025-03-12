@@ -1,64 +1,55 @@
-import React, { useEffect, useState } from "react";
-import "./App.css";
+import { useState } from "react";
 
 const App = () => {
-  const [count, setCount] = useState(1000);
-  const [data, setData] = useState([]);
-  const [search, setSearch] = useState("");
-  const [filterData, setFilterData] = useState([]);
+  const [todo, setTodo] = useState(["aman", "abc", "xyz"]); //in memory db
+  const [task, setTask] = useState(""); //input field
 
-  useEffect(() => {
-    const apiCall = async () => {
-      const response = await fetch("https://fakestoreapi.com/products");
-      const json = await response.json();
-      setData(json);
-      setFilterData(json);
-    };
-    apiCall();
-  }, []);
-
-  console.log(data);
-
-  function handleSearch() {
-    const filterItem = data.filter((item) =>
-      item.title.toLowerCase().includes(search.toLowerCase())
-    );
-    setFilterData(filterItem);
+  function handleAddTask() {
+    setTodo([...todo, task]);
+    setTask("");
   }
 
+  console.log(todo);
+
+  const handleDelete = (index) => {
+    const newTodos = todo.filter((t, idx) => idx != index);
+    setTodo(newTodos);
+  };
+  //in memory db
   return (
-    <div className="app">
-      <div>
-        <form onSubmit={(e) => e.preventDefault()}>
-          <input
-            placeholder="Search"
-            className="search-bar"
-            onChange={(e) => setSearch(e.target.value)}
-          ></input>
-          <button onClick={handleSearch}>Search</button>
-        </form>
+    <div className="min-h-screen flex flex-col justify-center items-center bg-gray-100 p-5">
+      <h1 className="font-bold text-2xl mb-4">Todo List</h1>
+      <div className="flex mb-4 gap-2">
+        <input
+          placeholder="Enter your task"
+          className="border rounded-xl p-2 w-64"
+          onChange={(e) => setTask(e.target.value)}
+          value={task}
+        ></input>
+
+        <button
+          className="bg-blue-500 text-white px-4 py-2 rounded-xl"
+          onClick={handleAddTask}
+        >
+          Add task
+        </button>
       </div>
-      <div className="products-container">
-        {filterData.map((item) => (
-          <div className="product-card" key={item.id}>
-            <h2 className="product-title">{item.title}</h2>
-            <img className="product-image" src={item.image} alt={item.title} />
-            <h3 className="product-price">₹{item.price}</h3>
+      <ul className="w-72">
+        {todo.map((t, index) => (
+          <li
+            key={index}
+            className="flex justify-between items-center bg-white p-2 rounded shadow mb-2"
+          >
+            {t}
             <button
-              className="add-to-cart-button"
-              onClick={() => alert("Item added to cart")}
+              className="text-red-600 font-bold"
+              onClick={() => handleDelete(index)}
             >
-              Add to Cart
+              X
             </button>
-          </div>
+          </li>
         ))}
-      </div>
-      <button
-        className="increase-button"
-        onClick={() => setCount(count + 1000)}
-      >
-        Increase
-      </button>
+      </ul>
     </div>
   );
 };
