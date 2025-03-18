@@ -1,11 +1,13 @@
 import { useState } from "react";
 
 const App = () => {
-  const [todo, setTodo] = useState(["aman", "abc", "xyz"]); //in memory db
+  //{name:"study",id:}
+  const [todo, setTodo] = useState([]); //in memory db
   const [task, setTask] = useState(""); //input field
 
   function handleAddTask() {
-    setTodo([...todo, task]);
+    if (task == "") return;
+    setTodo([...todo, { name: task, id: crypto.randomUUID() }]);
     setTask("");
   }
 
@@ -37,10 +39,10 @@ const App = () => {
       <ul className="w-72">
         {todo.map((t, index) => (
           <li
-            key={index}
+            key={t.id}
             className="flex justify-between items-center bg-white p-2 rounded shadow mb-2"
           >
-            {t}
+            {t.name}
             <button
               className="text-red-600 font-bold"
               onClick={() => handleDelete(index)}
