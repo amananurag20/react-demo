@@ -7,22 +7,21 @@ import Login from "./components/Login";
 import Mobile from "./components/Mobile";
 import Navbar from "./components/Navbar";
 import User from "./components/User";
-import Layout from "./components/Layout";
 
 const App = () => {
   return (
     <>
       <BrowserRouter>
+        <Navbar />
         <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route path="/product" element={<Product />}>
-              <Route path="/product/login" element={<Login />} />
-            </Route>
+          <Route path="/" element={<Home />} />
+          <Route path="/product" element={<Product />}>
             <Route path="/product/user" element={<User />} />
-            <Route path="/:id" element={<Mobile />} />
-            <Route path="/cat" element={<h1 className="text-7xl">hiii</h1>} />
-            <Route path="*" element={<h1>Page not found 404 </h1>} />
           </Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="/:id" element={<Mobile />} />
+          <Route path="/cat" element={<h1 className="text-7xl">hiii</h1>} />
+          <Route path="*" element={<h1>Page not found 404 </h1>} />
         </Routes>
       </BrowserRouter>
     </>
