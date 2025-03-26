@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 const Mobile = () => {
   const [count, setCount] = useState(1000);
+  const location = useLocation();
+  console.log(location);
 
   const handleClick = () => {
     setCount(count + 1000);
