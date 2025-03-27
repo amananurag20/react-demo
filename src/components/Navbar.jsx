@@ -7,7 +7,7 @@ const Navbar = () => {
       <h1 className="font-bold">React Routing</h1>
 
       <div className="flex gap-4 font-semibold">
-        <Link to={"/"}>Home</Link>
+        <Link to={"/Home"}>Home</Link>
         <Link to={"/product"}>Product</Link>
         <Link to={"/mobile"}>Mobile</Link>
         <Link to={"/login"}>Login</Link>

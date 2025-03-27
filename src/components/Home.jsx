@@ -1,6 +1,7 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { data, Link } from "react-router-dom";
 import Header from "./Header";
+import UserContext from "../context/UserContext";
 
 const Home = () => {
   const [count, setCount] = useState(1000);
@@ -8,6 +9,8 @@ const Home = () => {
   let data = 1000; //5000
   console.log(data);
   const inputRef = useRef(); //{current:undefined}
+
+  const { color, setColor } = useContext(UserContext);
 
   const dataRef = useRef(1000); // {current:1000}
   console.log(inputRef);
@@ -35,6 +38,8 @@ const Home = () => {
       <img src="https://static.vecteezy.com/system/resources/thumbnails/040/707/474/small_2x/ai-generated-beautiful-home-exterior-in-evening-with-glowing-interior-lights-and-landscaping-photo.jpg" />
 
       <h1 className="text-5xl font-bold">{count}</h1>
+
+      {color}
 
       <input
         ref={inputRef}
