@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 const Mobile = () => {
   const [count, setCount] = useState(1000);
   const location = useLocation();
   console.log(location);
+
+  const imgRef = useRef(); //{current:undefined}
+
+  let data = 20;
 
   const handleClick = () => {
     setCount(count + 1000);
@@ -24,6 +28,7 @@ const Mobile = () => {
   return (
     <div className="text-center">
       <img
+        ref={imgRef}
         className="w-[400px]"
         src="https://5.imimg.com/data5/SELLER/Default/2023/3/296178163/GX/GL/SD/186724856/vivo-mobile-phone.jpg"
       />
