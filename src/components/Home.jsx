@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { data, Link } from "react-router-dom";
 import Header from "./Header";
 import UserContext from "../context/UserContext";
+import ThemeContext from "../context/ThemeContext";
 
 const Home = () => {
   const [count, setCount] = useState(1000);
@@ -11,6 +12,8 @@ const Home = () => {
   const inputRef = useRef(); //{current:undefined}
 
   const { color, setColor } = useContext(UserContext);
+
+  const { theme, setTheme } = useContext(ThemeContext);
 
   const dataRef = useRef(1000); // {current:1000}
   console.log(inputRef);
@@ -66,6 +69,7 @@ const Home = () => {
         increase ref by 1000
       </button>
       {/* <Header data={sum} /> */}
+      {theme}
 
       <button onClick={handleData}>Increase data by 1000</button>
     </div>

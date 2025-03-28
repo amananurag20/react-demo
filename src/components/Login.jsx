@@ -22,9 +22,11 @@ const Login = () => {
     <div>
       <img src="https://codeconvey.com/wp-content/uploads/2019/05/Login-Page-with-Anime-Background.jpg"></img>
 
-      {color}
-
-      <input type="text" onChange={(e) => setColor(e.target.value)}></input>
+      <input
+        type="text"
+        onChange={(e) => setColor(e.target.value)}
+        value={color}
+      ></input>
       <input
         type="password"
         onChange={(e) => setPassword(e.target.value)}
