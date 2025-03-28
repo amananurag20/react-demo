@@ -2,7 +2,7 @@ import React, { useState, memo } from "react";
 
 const Header = () => {
   console.log("header");
-  return <div>Header{1000}</div>;
+  return <>Header{1000}</>;
 };
 
 export default memo(Header);
