@@ -1,50 +1,72 @@
-import React, { lazy, Suspense, useState } from "react";
 
-import Home from "./components/Home";
-import Product from "./components/Product";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import Login from "./components/Login";
-import Mobile from "./components/Mobile";
-import Navbar from "./components/Navbar";
-import User from "./components/User";
-import ProtectedRoute from "./components/ProtectedRoute";
-import UserContext from "./context/UserContext";
-import ThemeContext, { ThemeProvider } from "./context/ThemeContext";
+import React, { useEffect, useState } from "react";
+import "./App.css";
+import { useDispatch, useSelector } from "react-redux";
+import { addItem } from "./store/cartSlice";
+
 
 const App = () => {
   const isAuthenticated = false;
 
   const [color, setColor] = useState("red");
 
-  //
+
+  const cartItems = useSelector((store) => store.cart.items);
+  console.log({ cartItems });
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const apiCall = async () => {
+      const response = await fetch("https://fakestoreapi.com/products");
+      const json = await response.json();
+      setData(json);
+      setFilterData(json);
+    };
+    apiCall();
+  }, []);
+
+
+             
+
+  function handleClick(item) {
+    dispatch(addItem(item));
+  }
   return (
-    <>
-      <ThemeProvider>
-        <UserContext.Provider value={{ color, setColor }}>
-          <BrowserRouter>
-            <Navbar />
-            <Routes>
-              <Route path="/product" element={<Product />}>
-                <Route path="/product/user" element={<User />} />
-              </Route>
-              <Route path="/login" element={<Login />} />
+    <div className="app">
+      <div>
+        <form onSubmit={(e) => e.preventDefault()}>
+          <input
+            placeholder="Search"
+            className="search-bar"
+            onChange={(e) => setSearch(e.target.value)}
+          ></input>
+          <button onClick={handleSearch}>Search</button>
+        </form>
+        Cart {cartItems.length}
+      </div>
+      <div className="products-container">
+        {filterData.map((item) => (
+          <div className="product-card" key={item.id}>
+            <h2 className="product-title">{item.title}</h2>
+            <img className="product-image" src={item.image} alt={item.title} />
+            <h3 className="product-price">₹{item.price}</h3>
+            <button
+              className="add-to-cart-button"
+              onClick={() => handleClick(item)}
+            >
+              Add to Cart
+            </button>
+          </div>
+        ))}
+      </div>
+      <button
+        className="increase-button"
+        onClick={() => setCount(count + 1000)}
+      >
+        Increase
+      </button>
+    </div>
 
-              <Route path="/Home" element={<Home />} />
-
-              <Route path="/" element={<ProtectedRoute />}>
-                <Route path={"/mobile"} element={<Mobile />} />
-                <Route
-                  path="/cat"
-                  element={<h1 className="text-7xl">hiii</h1>}
-                />
-              </Route>
-
-              <Route path="*" element={<h1>Page not found 404 </h1>} />
-            </Routes>
-          </BrowserRouter>
-        </UserContext.Provider>
-      </ThemeProvider>
-    </>
   );
 };
 
