@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "./App.css";
+import { useDispatch, useSelector } from "react-redux";
+import { addItem } from "./store/cartSlice";
 
 const App = () => {
   const [count, setCount] = useState(1000);
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
   const [filterData, setFilterData] = useState([]);
+
+  const cartItems = useSelector((store) => store.cart.items);
+  console.log({ cartItems });
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const apiCall = async () => {
@@ -26,6 +32,9 @@ const App = () => {
     setFilterData(filterItem);
   }
 
+  function handleClick(item) {
+    dispatch(addItem(item));
+  }
   return (
     <div className="app">
       <div>
@@ -37,6 +46,7 @@ const App = () => {
           ></input>
           <button onClick={handleSearch}>Search</button>
         </form>
+        Cart {cartItems.length}
       </div>
       <div className="products-container">
         {filterData.map((item) => (
@@ -46,7 +56,7 @@ const App = () => {
             <h3 className="product-price">₹{item.price}</h3>
             <button
               className="add-to-cart-button"
-              onClick={() => alert("Item added to cart")}
+              onClick={() => handleClick(item)}
             >
               Add to Cart
             </button>
