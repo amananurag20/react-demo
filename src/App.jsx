@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "./store/cartSlice";
+import { Link } from "react-router-dom";
 
 const App = () => {
   const [count, setCount] = useState(1000);
@@ -46,7 +47,10 @@ const App = () => {
           ></input>
           <button onClick={handleSearch}>Search</button>
         </form>
-        Cart {cartItems.length}
+        <h1>
+          {" "}
+          <Link to={"/cart"}>Cart {cartItems.length}</Link>
+        </h1>
       </div>
       <div className="products-container">
         {filterData.map((item) => (
