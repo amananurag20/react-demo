@@ -1,14 +1,16 @@
+
 import React, { useEffect, useState } from "react";
 import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "./store/cartSlice";
 import { Link } from "react-router-dom";
 
+
 const App = () => {
-  const [count, setCount] = useState(1000);
-  const [data, setData] = useState([]);
-  const [search, setSearch] = useState("");
-  const [filterData, setFilterData] = useState([]);
+  const isAuthenticated = false;
+
+  const [color, setColor] = useState("red");
+
 
   const cartItems = useSelector((store) => store.cart.items);
   console.log({ cartItems });
@@ -24,14 +26,8 @@ const App = () => {
     apiCall();
   }, []);
 
-  console.log(data);
 
-  function handleSearch() {
-    const filterItem = data.filter((item) =>
-      item.title.toLowerCase().includes(search.toLowerCase())
-    );
-    setFilterData(filterItem);
-  }
+             
 
   function handleClick(item) {
     dispatch(addItem(item));
@@ -74,6 +70,7 @@ const App = () => {
         Increase
       </button>
     </div>
+
   );
 };
 
