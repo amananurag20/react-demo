@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import appStore from "./store/appStore.jsx";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Cart from "./components/Cart.jsx";
+import Parent from "./components/Parent.jsx";
 
 createRoot(document.getElementById("root")).render(
   // <StrictMode>
@@ -16,6 +17,7 @@ createRoot(document.getElementById("root")).render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/data" element={<Parent />} />
       </Routes>
     </BrowserRouter>
   </Provider>

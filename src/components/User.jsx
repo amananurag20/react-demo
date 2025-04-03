@@ -1,12 +1,40 @@
-import React from "react";
 
-const User = () => {
-  return (
-    <div>
-      User
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqf0Wx4wmsKfLYsiLdBx6H4D8bwQBurWhx5g&s"></img>
-    </div>
-  );
-};
+import React, { Component } from "react";
 
-export default User;
+class User extends Component {
+  constructor(props) {
+    super(props);
+    console.log(props);
+
+    this.state = {
+      count: 1000,
+      data: "songs",
+      email: "abc@gmail.com",
+    };
+  }
+
+  render() {
+    const { name, gfName } = this.props;
+    return (
+      <>
+        <h1>hi dear</h1>
+        <h2>{name}</h2>
+        <h3>{gfName}</h3>
+        <h4>{this.state.data}</h4>
+        <h4>{this.state.email}</h4>
+        <h4>{this.state.count}</h4>
+        <button
+          onClick={() =>
+            this.setState({
+              count: this.state.count + 1000,
+              data: "toota dil",
+            })
+          }
+        >
+          increase count
+        </button>
+      </>
+    );
+  }
+}
+

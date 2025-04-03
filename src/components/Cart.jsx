@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCart, removeItem } from "../store/cartSlice";
+import User from "./User";
 
 const Cart = () => {
   const cartItems = useSelector((store) => store.cart.items);
@@ -16,6 +17,7 @@ const Cart = () => {
     return (
       <div style={{ textAlign: "center" }}>
         <h1>cart item is empty</h1>
+        <User name={"lion"} gfName={"tiger"} />
       </div>
     );
   }
@@ -55,6 +57,8 @@ const Cart = () => {
           );
         })}
       </div>
+
+      <User />
     </div>
   );
 };
