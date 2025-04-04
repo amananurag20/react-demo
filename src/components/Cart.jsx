@@ -17,7 +17,7 @@ const Cart = () => {
     return (
       <div style={{ textAlign: "center" }}>
         <h1>cart item is empty</h1>
-        <User name={"lion"} gfName={"tiger"} />
+        <User name={"parent"} />
       </div>
     );
   }
